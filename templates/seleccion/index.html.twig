@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block stylesheets %}{{ parent() }}{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+    <p>Este es el index de mi aplicación</p>
+
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {#{{ dump(jugadores[0].getEquipoJugador().getNombre() ) }}#}
+    
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+            
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Edad</th>
+                        <th scope="col">Equipo</th>
+                        <th scope="col">País Jugador</th>
+                        <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for jugador in jugadores %}
+                            <tr>
+                                <th scope="row">{{ jugador.id }}</th>
+                                <td>{{ jugador.nombre }}</td>
+                                <td>{{ jugador.edad }}</td>
+                                <td>{{ jugador.getEquipoJugador().getNombre() }}</td>
+                                <td>{{ jugador.getPaisJugador().getNombrePais() }}</td>
+                                <td><a href="{{ path('editar', {id: jugador.id }) }}">Editar</a>
+                                    <a href="{{ path('eliminar', {id: jugador.id }) }}">Eliminar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}{{ parent() }}{% endblock %}
